@@ -1,0 +1,584 @@
+#####################################################################################################
+##This is ComboProject1.txt, a Maple package to generate and investigate integer sequences counting #
+##the number of HAMILTONIAN CYCLES for interesting graphs that come from Chess. Generalizing        #
+##the famous Knight's tour in a 3 by board                                                          #
+####It is the Maple package created by Team 1 in Dr. Z.'s Combinatorics Clss at                     #
+#Rutgers University, Fall 2020.                                                                     #
+# Save this file as `ComboProject1.txt`, to use it                                                  #
+#Type, in a Maple session                                                                           #
+#read `ComboProject1.txt`):                                                                         #
+#and then to get a list of the functions type                                                       #
+#Help():                                                                                            #
+#For Help with any of the functions, type                                                           # 
+#Help(FunctionName)                                                                                 #
+#Team Leader:                                                                                       #
+#Team members:                                                                                      #
+####################################################################################################
+print(``):
+print(`This is ComboProject1.txt, a Maple package that is part of Project 1 in Dr. Z.'s Combinatorics Class at Rutgers University, Fall 2020`):
+print(`Its purpose is to generate and investigate integer sequences counting  `):
+print(`the number of HAMILTONIAN CYCLES for interesting graphs that come from Chess. Generalizing and Extending Euler's Knight's tour`):
+print(``):
+print(`-----------------------------------------`):
+
+print(`-----------------`):
+print(``):
+print(`Team Leader: tbd `):
+print(``):
+print(`Other Team members: tbd `):
+print(``):
+print(`-----------------`):
+print(``):
+
+print(`------------------------------------`):
+print(`Added Oct. 27, 2020: William Wang detected a bug in SAW and SAWnu, that is now fixed. He won 5 dollars.`):
+print(`------------------------------------`):
+
+print(`For a list of all the functions type: Help(); `):
+print(`For Help with any of the functions, type  Help(FunctionName):`):                                                                        
+
+
+Help1:=proc(): 
+if nargs=0 then
+
+print(`The secondary procedures are, CF, KiRtL, KiRtG, Lang, PtoW `):
+
+else
+Help(args):
+fi:
+end:
+
+
+
+Help:=proc()
+if nargs=0 then
+print(`The available procedures are`):
+print(`  CGP, ContP, GP, KiG, KtG,  CGP(G) `): 
+print(`KingToursGF, KiTours(k,n), KtTours(k,n),  `):
+print(`SAW1(G,a,b,k,S), SAW(G),  SAW1nu(G,a,b,k,S), SAWnu(G), WtEWalks `):
+
+
+
+elif nargs=1 and args[1]=CGP then
+print(`CGP(G): Given a graph G finds the set of Hamiltonian cycles (i.e. CLOSED paths) starting with 1 `):
+print(`Using a bottom up approach`):
+print(`Try: `):
+print(`CGP(KtG(3,10)[1]; `):
+
+
+elif nargs=1 and args[1]=CF then
+print(`CF(G): Given a directred graph G=[V,E] where V is the set of vertices  and  E is the set of edges`):
+print(`outputs it in canonical form, followed by the translation Try:`):
+print(`CF([{1,2,3},{[1,2],[1,3]}]);`):
+
+elif nargs=1 and args[1]=ContP then
+print(`ContP(G,P): Inputs a graph (in Canonical form) and a good path (one that has no repeats) finds the set of`):
+print(`good continuations.`):
+print(`Try: ContP(KG(3,10)[1],[1]):`):
+
+elif nargs=1 and args[1]=GP then
+print(`GP(G,k): The set of all good paths of length k, in the graph G, starting with 1. Try:`):
+print(`GP(KG(3,10)[1],30);`):
+
+elif nargs=1 and args[1]=KiG then
+print(`KiG(k,n): The KING graph on a k by n chess-board. It returns G,V where `):
+print(`G is the graph in CANONICAL FORM, where the vertices are named {1, ... ,n} (where n is the length of the list G)`):
+print(`and G[i] is  the set of neighbors of vertex i, and V is the "dictionary" telling you the real name of vertex i.`):
+print(`For example, to get the graph of King's Tour on the 3 by 10 chessboard, type`):
+print(`KiG(3,10); `):
+
+elif nargs=1 and args[1]=KiRtG then
+print(`KiRtG(k,Max): The grammar of King's Tours in a chess-board of width k done empirically up to length Max`):
+print(`as soon as the langues for two consecutive length agree it stops. It this does not happen before Max it returns FAIL. Try:`):
+print(`KiRtG(2,7);`):
+
+elif nargs=1 and args[1]=KiRtL then
+print(`KiRtL(m,n): The language of the King's Tours in an m by n Chess board`):
+print(` Try: `):
+print(`KiRtL(3,4); `):
+
+
+elif nargs=1 and args[1]=KingToursGF then
+print(`KingToursGF(k,Max,t): The generating function whose coefficients (in its Taylor series) of t^n is the`):
+print(`number of King's tours on a k by n Chess board. It uses an empirical-linguist approach`):
+print(`by trying to find a grammar up to boards of length Max. If it fails, it returns FAIL.`):
+print(`(you  can try and make Max bigger, and get a bigger computer). try:`):
+print(`KingToursGF(2,7,t);`):
+
+
+elif nargs=1 and args[1]=KiTours then
+print(`KiTours(k,n): set of CLOSED KING-TOURS in a k by n chessboard. `):
+print(`For example, type`):
+print(`KTours(3,4); `):
+
+
+elif nargs=1 and args[1]=KtG then
+print(`KtG(k,n): The Knight graph on a k by n chess-board. It returns G,V where `):
+print(`G is the graph in CANONICAL FORM, where the vertices are named {1, ... ,n} (where n is the length of the list G)`):
+print(`and G[i] is  the set of neighbors of vertex i, and V is the "dictionary" telling you the real name of vertex i.`):
+print(`For example, to get the graph of Knight's Tour on the 3 by 10 chessboard, type`):
+print(`KtG(3,10); `):
+
+elif nargs=1 and args[1]=KtTours then
+print(`KtTours(k,n): set of CLOSED KNIGHT-TOURS in a k by n chessboard. `):
+print(`For example, to prove Euler wrong (who believed that it is impossible), type`):
+print(`KtTours(3,10); `):
+
+elif nargs=1 and args[1]=Lang then
+print(`Lang(Corp): Given a set of words finds the linguistic graph in canonical form followed by the`):
+print(`list L such that L[i] is the actual letter whose id is i. Try: `):
+print(`Lang(KiRtL(3,3);`):
+
+elif nargs=1 and args[1]=PtoW then
+print(`PtoW(P): Given a path of lattice points outputs a word in certain alphabet of triples of pairs. Try: `):
+print(` P:=KiTours(3,4)[1]; PtoW(P,3,4); `):
+
+elif nargs=1 and args[1]=SAW then
+print(` SAW(G): The set of Closed Hamiltonian paths in the graph G (in canonical form) starting at 1 and G[1][1] `):
+print(`Using a TOP down approach`):
+print(`same thing at CGP(G) except for orientation `):
+print(`Try: SAW(KtG(3,10)[1]);` ):
+
+
+elif nargs=1 and args[1]=SAWnu then
+print(` SAWnu(G): The NUMBER of Closed Hamiltonian paths in the graph G (in canonical form) starting at 1 and G[1][1] `):
+print(`Using a TOP down approach`):
+print(`same thing at CGP(G) except for orientation. Try: `):
+print(`SAW(KtG(3,10)[1]);`):
+
+elif nargs=1 and args[1]=WtEWalks then
+print(`WtEwalks(G,a,b,t): The weight enumerator, according to the weight t^LengthOfWalk, of the set of paths in a directed graph G`):
+print(`(given in canonical form) from vertex a to vertex b. Try:`):
+print(`WtEwalks([{2,3},{1,3},{1,2}],1,2,t);`):
+
+else
+ print(`There is no Help for`):
+print(args):
+fi:
+
+end:
+
+#KtG(k,n): The Knight graph on a k by n board
+KtG:=proc(k,n) local V,E,i,j,T1,v,Neighs,Moves,m,pt:
+
+#The set the list of  vertices in the k by n board (using matrix indexing)
+V:=[seq(seq(seq([i,j],j=1..n),i=1..k))]:
+
+#T1 is a labelling of the vertices in V
+
+for i from 1 to nops(V) do
+T1[V[i]]:=i:
+od:
+
+#E is a list such that its i-th entry is the set of neighbors of V[i] using the above-indexing
+
+E:=[]:
+
+for i from 1 to nops(V) do
+ pt:=V[i]:
+
+Moves:={[1,2],[-1,2],[1,-2],[-1,-2],[2,1],[2,-1],[-2,1],[-2,-1]}:
+#There are up to 8 neighbors of any vertex 
+Neighs:={seq(pt+m,m in Moves)}:
+
+#But many of them fall off the board, 
+Neighs:=Neighs intersect convert(V,set):
+
+#We append to the "list of neighbors" the set of neighbors of the current vertex BUT in terms of their "ids" (given by T1)
+#getting a description of the graph in "cannical form"
+E:=[op(E),{seq(T1[v],v in Neighs)}]:
+od:
+
+#We return the graph in "canonical form" where the vertices (members of V), are labelled by positive inetegers from 1 to nops(V)
+#together with the "dictionary"
+E,V:
+end:
+
+
+
+
+#KiG(k,n): The King graph on a k by n board
+KiG:=proc(k,n) local V,E,i,j,T1,v,Neighs,Moves,m,pt:
+
+#The set the list of  vertices in the k by n board (using matrix indexing)
+V:=[seq(seq(seq([i,j],j=1..n),i=1..k))]:
+
+#T1 is a labelling of the vertices in V
+
+for i from 1 to nops(V) do
+T1[V[i]]:=i:
+od:
+
+#E is a list such that its i-th entry is the set of neighbors of V[i] using the above-indexing
+
+E:=[]:
+
+for i from 1 to nops(V) do
+ pt:=V[i]:
+
+Moves:={[1,0],[-1,0],[0,1],[0,-1],[1,1],[-1,-1],[1,-1],[-1,1]}:
+#There are up to 8 neighbors of any vertex 
+Neighs:={seq(pt+m,m in Moves)}:
+
+#But many of them fall off the board, 
+Neighs:=Neighs intersect convert(V,set):
+
+#We append to the "list of neighbors" the set of neighbors of the current vertex BUT in terms of their "ids" (given by T1)
+#getting a description of the graph in "cannical form"
+E:=[op(E),{seq(T1[v],v in Neighs)}]:
+od:
+
+#We return the graph in "canonical form" where the vertices (members of V), are labelled by positive inetegers from 1 to nops(V)
+#together with the "dictionary"
+E,V:
+end:
+
+
+
+
+#ContP(G,P): Inputs a graph (in Canonical form) and a good path (one that has no repeats) finds the set of
+#good continations.
+#Try: ContP(KG(3,10)[1],[1]):
+ContP:=proc(G,P) local S,s,v:
+
+#v is the last vertex in the path P
+v:=P[nops(P)]:
+
+
+#S  is the set of legal followers
+S:=G[v] minus convert(P,set):
+
+#The output is the set of legal continuations obtained by appending to P all the legal continuations
+{seq([op(P),s], s in S)}:
+end:
+
+#GP(G,k): The set of all good paths of length k, in the graph G, starting with 1. Try:
+#GP(KG(3,10)[1],30);
+GP:=proc(G,k) local SetP,P:
+option remember:
+
+#This is the initial condition
+if k=1 then
+ RETURN({[1]}):
+fi:
+
+#We can the procedure recursively
+SetP:=GP(G,k-1):
+
+#We call ContP(G,P) for each of the members of that are good so far, and take their union
+{seq(op(ContP(G,P)), P in SetP)}:
+
+end:
+
+#CGP(G): Given a graph G finds the set of Hamiltonian cycles starting with 1 
+CGP:=proc(G) local S,AllP,NeiOne,P:
+
+#AllP is the set of ALL Hamiltionain Paths 
+AllP:=GP(G,nops(G)):
+NeiOne:=G[1]:
+
+#We now only include those that end with a neighbor of 1
+S:={}:
+
+for P in AllP do
+ if member(P[nops(P)],NeiOne) then
+  S:=S union {P}:
+ fi:
+od:
+
+S:
+
+end:
+
+
+#SAW1(G,a,b,k,S): Inputs a graph G of {1, ..., n} and two vertices a and b and a pos. integer k and a set of vertices S, outputs the
+#set of walks of length k from a to b that avoid S. Try
+#SAW1(KtG(3,5)[1],1,2,5,{}):
+SAW1:=proc(G,a,b,k,S) local gu,n,a1,lu,lu1,mu:
+option remember:
+n:=nops(G):
+if not (1<=a and a<=n and 1<=b and b<=n) then
+ RETURN(FAIL):
+fi:
+
+if k=1 then
+ if member(b,G[a]) and  not member(a,S) and not member(b,S) then
+  RETURN({[a,b]}):
+ else
+  RETURN({}):
+ fi:
+fi:
+
+
+if (member(a,S) or member(b,S)) then
+ RETURN({}):
+fi:
+
+mu:=G[a] minus (S union {a}):
+
+gu:={}:
+
+for a1  in mu do
+ lu:=SAW1(G,a1,b,k-1,S union {a}):
+ gu:=gu union {seq([a,op(lu1)],lu1 in lu)}:
+od:
+
+gu:
+
+end:
+
+#SAW(G): The set of Closed Hamiltonian paths in the graph G (in canonical form) starting at 1 and G[1][1]
+#Try: SAW(KtG(3,10)[1]):
+#
+SAW:=proc(G) local i:
+{seq(op(SAW1(G,1,G[1][i],nops(G)-1,{})),i=1..nops(G[1]))}:
+end:
+
+
+
+
+
+
+
+
+
+#SAW1nu(G,a,b,k,S): Inputs a graph G of {1, ..., n} and two vertices a and b and a pos. integer k and a set of vertices S, outputs the
+#NUMBER of walks of length k from a to b that avoid S. Try
+#SAW1nu(KtG(3,5)[1],1,2,5,{}):
+SAW1nu:=proc(G,a,b,k,S) local mu,n,a1:
+option remember:
+n:=nops(G):
+if not (1<=a and a<=n and 1<=b and b<=n) then
+ RETURN(FAIL):
+fi:
+
+if k=1 then
+ if member(b,G[a]) and  not member(a,S) and not member(b,S) then
+  RETURN(1):
+ else
+  RETURN(0):
+ fi:
+fi:
+
+
+if (member(a,S) or member(b,S)) then
+ RETURN(0):
+fi:
+
+mu:=G[a] minus (S union {a}):
+
+add(SAW1nu(G,a1,b,k-1,S union {a}), a1 in mu):
+
+end:
+
+
+#SAWnu(G): The NUMBER of Closed Hamiltonian paths in the graph G (in canonical form) starting at 1 and G[1][1]
+#Try: SAWnu(KtG(3,10)[1]):
+SAWnu:=proc(G) local i:
+add(SAW1nu(G,1,G[1][i],nops(G)-1,{}),i=1..nops(G[1])):
+end:
+
+
+#KtTours(k,n): The set of closed Knight-Tours in a k by n chess-board. Try:
+#KtTours(3,10);
+KtTours:=proc(k,n) local G,V,TOURS,t,i:
+G:=KtG(k,n):
+V:=G[2]:
+G:=G[1]:
+
+TOURS:=SAW(G):
+
+{seq([seq(V[t[i]],i=1..nops(t)),V[t[1]]],t in TOURS)}:
+end:
+
+
+#KiTours(k,n): The set of closed King-Tours in a k by n chess-board. Try:
+#KiTours(3,4);
+KiTours:=proc(k,n) local G,V,TOURS,t,i:
+G:=KiG(k,n):
+V:=G[2]:
+G:=G[1]:
+
+TOURS:=SAW(G):
+
+{seq([seq(V[t[i]],i=1..nops(t)),V[t[1]]],t in TOURS)}:
+end:
+
+
+
+#PtoW(P,m,n): Given a path of lattice points in {1,2,..,m}x {1,...,n} outputs a word in certain alphabet of m-tuples of pairs 
+#Try:
+#PtoW(KiTours(3,4)[1],3,4);
+PtoW:=proc(P,m,n) local T,i,j:
+
+if nops(P)<>m*n+1 then
+ print(`Bad input`):
+ RETURN(FAIL):
+fi:
+
+if nops(convert(P,set))<>m*n then
+ print(`Bad input`):
+ RETURN(FAIL):
+fi:
+
+
+
+if P[1]<>[1,1] or P[-1]<>[1,1] then
+ print(`P must start and end with`, [1,1]):
+ RETURN(FAIL):
+fi:
+
+
+T[[1,1]]:=[P[-2]-P[-1] , P[2]-P[1]]:
+
+for i from 2 to nops(P)-1 do
+ T[P[i]]:=[P[i-1]-P[i],P[i+1]-P[i]]:
+od:
+
+[seq([seq(T[[i,j]],i=1..m)],j=1..n)]:
+
+
+end:
+
+
+#KiRtL(m,n): The language of the King's Tours in an m by n Chess board
+#Try:
+#KiRtL(3,4);
+KiRtL:=proc(m,n) local S,P:
+S:=KiTours(m,n):
+{seq( [0,op(PtoW(P,m,n)),1], P in S)}:
+end:
+
+#Lang(Corp): Given a set of words finds the linguistic graph in canonical form followed by the
+#list L such that L[i] is the actual letter whose id is i. Try:
+#Lang(KiRtL(3,3));
+Lang:=proc(COR) local VERTICES,EDGES,w,i1:
+
+#VERTICES IS THE SET OF ALL LETTERS THAT SHOWED UP
+
+VERTICES:={seq(op(w), w in COR)}:
+
+
+EDGES:={seq(seq([w[i1],w[i1+1]],i1=1..nops(w)-1), w in COR)}:
+
+[VERTICES, EDGES]:
+
+
+end:
+
+
+#CF(G): Given a directred graph G=[V,E] where V is the set of vertices  and  E is the set of edges
+#outputs it in canonical form, followed by the translation Try:
+#CF([{1,2,3},{[1,2],[1,3]}]);
+CF:=proc(G) local T,V,e,i,G1:
+
+V:=convert(G[1],list):
+
+for i from 1 to nops(V) do
+ T[V[i]]:=i:
+od:
+
+for i from 1 to nops(V) do
+ G1[i]:={}:
+od:
+
+for e in G[2] do
+G1[T[e[1]] ]:=G1[T[e[1]] ] union {T[e[2]]}:
+od:
+
+[seq(G1[i],i=1..nops(V))],V:
+
+end:
+
+
+#WtEwalks(G,a,b,t): The weight enumerator, according to the weight t^LengthOfWalk, of the set of paths in a directed graph G
+#(given in canonical form) from vertex a to vertex b. Try:
+#WtEwalks([{2,3},{1,3},{1,2}],1,2,t);
+WtEwalks:=proc(G,a,b,t) local eq,var,X,eq1,i,j:
+
+if not (1<=a and a<=nops(G) and  1<=b and b<=nops(G)) then
+ print(a,b, `must be integers between 1 and `, nops(G)):
+ RETURN(FAIL):
+fi:
+
+
+
+
+var:={seq(X[i],i=1..nops(G))}:
+
+#X[i] is the weight-enumerator of walks from i to b
+
+eq:={}:
+
+for i from 1 to nops(G) do
+
+
+#Every walk from i to b unless it is of length 0 (that its weight is 1) starts with a walk from a neighbor of i
+ eq1:=X[i]-t*add(X[j], j in G[i]):
+
+
+#if i=b we must also include the empty walk
+
+if i=b then
+ eq1:=eq1-1:
+fi:
+
+eq:=eq union {eq1}:
+
+od:
+
+normal(subs(solve(eq,var),X[a])):
+
+
+end:
+
+
+#KiRtG(k,Max): The grammar of King's Tours in a chess-board of width k done empirically up to length Max
+#as soon as the langues for two consecutive length agree it stops. It this does not happen before Max it returns FAIL. Try:
+#KiRtG(2,7);
+KiRtG:=proc(k,Max) local i:
+
+for i from 1 to Max do
+ if Lang(KiRtL(k,i))=Lang(KiRtL(k,i+1)) then
+  RETURN( CF(Lang(KiRtL(k,i)))):
+fi:
+od:
+
+FAIL:
+
+end:
+
+
+#KingToursGF(k,Max,t): The generating function whose coefficients (in its Taylor series) of t^n is the
+#number of King's tours on a k by n Chess board. It uses an empirical-linguist approach
+#by trying to find a grammar up to boards of length Max. If it fails, it returns FAIL.
+#(you  can try and make Max bigger, and get a bigger computer). try:
+#KingToursGF(2,7,t);
+KingToursGF:=proc(k,Max,t) local G,f:
+
+G:=KiRtG(k,Max) :
+
+if G=FAIL then
+ RETURN(FAIL):
+fi:
+
+if not (G[2][1]=0 and G[2][2]=1) then
+ RETURN(FAIL):
+fi:
+
+
+
+#we divide by t since in our model where we have a starting letter 0 and an ending letter 1, 
+#each path has one extra length
+f:=normal(WtEwalks(G[1],1,2,t)/t):
+
+
+#We manually add the coefficient of t^2
+f:=normal(f+nops(KiTours(k,2))*t^2 ):
+
+#Following the convention (from Kinght's Tours) that we don't count different orienations, we divide by 2
+f:=f/2:
+
+normal(f):
+
+end:
